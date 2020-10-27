@@ -20,7 +20,7 @@ namespace EFExample
                 where m.Id == 10248
                 select new {m, s, s1};
             
-            var query = o in Order
+            Order query = 
 
             foreach (var VARIABLE in result)
             {
