@@ -1,0 +1,114 @@
+﻿using System;
+using System.CodeDom;
+using System.Collections.Generic;
+using System.Data;
+using System.Linq;
+using System.Runtime.InteropServices.ComTypes;
+using System.Text;
+using System.Threading.Tasks;
+using EFExample;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
+namespace Assignment4
+
+{
+    public class DataService
+    {
+        //private readonly string _connectionString;
+        public DataService()
+        {
+            using var ctx = new NorthWindContext();
+        }
+
+        public IList<Category> GetCategories()
+        {
+            using var ctx = new NorthWindContext();
+            return ctx.Categories.ToList();
+        }
+        
+        public Category GetCategory(int id)
+        {
+            using var ctx = new NorthWindContext();
+            return ctx.Categories.Find(id);
+        }
+        
+        public Category CreateCategory(string name,  string description)
+        {
+            using var ctx = new NorthWindContext();
+            var maxId = ctx.Categories.Max(x => x.Id);
+            ctx.Categories.Add(new Category{Id = maxId + 1, Name = name, Description = description});
+            ctx.SaveChanges();
+            return ctx.Categories.Find(maxId+1);
+        }
+        
+        public bool UpdateCategory(int id, string name, string description)
+        {
+            using var ctx = new NorthWindContext();
+            if (id <= 0) return false;
+            ctx.Categories.Update(ctx.Categories.Find(id)).Entity.Description = description;
+            ctx.Categories.Update(ctx.Categories.Find(id)).Entity.Name = name;
+            ctx.SaveChanges();
+            return GetCategory(id).Description == description && GetCategory(id).Name == name;
+        }
+
+        public Product GetProduct(int id)
+        { 
+            using var ctx = new NorthWindContext();
+            var itWorks = ctx.Categories.Find(id).Name;
+            return ctx.Products.Find(id);
+        }
+
+        public IList<Product> GetProductByCategory(int id)
+        {
+            using var ctx = new NorthWindContext();
+            var x = ctx.Products.Where(z => z.Category.Id == id && z.Category.Name == ctx.Categories.Find(id).Name);
+            return x.ToList();
+        }
+
+        public IList<Product> GetProductByName(string searchString)
+        {
+            using var ctx = new NorthWindContext();
+            var x = ctx.Products.Where(z => z.Name.Contains(searchString));
+            return x.ToList();
+        }
+
+        
+        
+        //NÅET HERTIL
+        public IList<Order> GetOrder(int id)
+        {
+            using var ctx = new NorthWindContext();
+            var x = ctx.Orders.Where(z => z.Id.Equals(id));
+
+            foreach (var value in x)
+            {
+                
+            }
+            
+            return x.ToList();
+        }
+
+        public bool DeleteCategory(int id)
+        {
+            using var ctx = new NorthWindContext();
+            if (id > 0)
+            {
+                ctx.Categories.Remove(new Category() {Id = id});
+                ctx.SaveChanges();
+            }
+            else return false;
+            return true;
+        }
+
+        public IList<Product> GetProducts()
+        {
+            using var ctx = new NorthWindContext();
+            
+            return ctx.Products
+                .Include(x => x.Category)
+                .ToList();
+        }
+
+
+    }
+}
