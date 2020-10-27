@@ -1,5 +1,4 @@
-﻿
-using System;
+﻿using System;
 using System.Data.Entity;
 using System.Linq;
 using Assignment4;
@@ -13,24 +12,20 @@ namespace EFExample
         {
             using var ctx = new NorthWindContext();
             var ds = new DataService();
-            ds.CreateCategory("Test","CreateCategory_ValidData_CreteCategoryAndRetunsNewObject");
+            ds.CreateCategory("Test", "CreateCategory_ValidData_CreteCategoryAndRetunsNewObject");
 
-            var result = ctx.Orders.Where(o => o.Id == 1).Select(o => o.Id);
+            var result = from m in ctx.Orders
+                join s in ctx.OrderDetails on m.Id equals s.Orderid
+                join s1 in ctx.Products on s.ProductId equals s1.Id
+                where m.Id == 10248
+                select new {m, s, s1};
+            
+            var query = o in Order
 
-            foreach (var VARIABLE in ctx.Products)
+            foreach (var VARIABLE in result)
             {
                 Console.WriteLine(VARIABLE);
             }
-
-
-
-
-
-
-
-
         }
     }
 }
-
-

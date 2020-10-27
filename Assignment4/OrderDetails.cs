@@ -19,10 +19,14 @@ namespace Assignment4
         public int Quantity { get; set; }
         
         public int Discount { get; set; }
-        
-        
-        
+
         public Product Product { get; set; }
+        
+        public override string ToString()
+        {
+            return
+                $"OrderId = {Orderid}, Productid = {ProductId}";
+        }
 
     }
 }

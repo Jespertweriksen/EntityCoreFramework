@@ -76,12 +76,16 @@ namespace Assignment4
         
         
         //NÅET HERTIL
-        public  Order GetOrder(int id)
+        public Order GetOrder(int id)
         {
             using var ctx = new NorthWindContext();
 
+            var result = from m in ctx.Orders
+                join s in ctx.OrderDetails on m.Id equals s.Orderid
+                join s1 in ctx.Products on s.ProductId equals s1.Id
+                where m.Id == 10248
+                select new {m, s, s1};
             return null;
-
 
         }
 
