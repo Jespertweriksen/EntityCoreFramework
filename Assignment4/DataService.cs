@@ -2,6 +2,7 @@
 using System.CodeDom;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.Entity;
 using System.Linq;
 using System.Runtime.InteropServices.ComTypes;
 using System.Text;
@@ -75,17 +76,13 @@ namespace Assignment4
         
         
         //NÅET HERTIL
-        public IList<Order> GetOrder(int id)
+        public  Order GetOrder(int id)
         {
             using var ctx = new NorthWindContext();
-            var x = ctx.Orders.Where(z => z.Id.Equals(id));
 
-            foreach (var value in x)
-            {
-                
-            }
-            
-            return x.ToList();
+            return null;
+
+
         }
 
         public bool DeleteCategory(int id)
@@ -99,16 +96,17 @@ namespace Assignment4
             else return false;
             return true;
         }
-
+/*
         public IList<Product> GetProducts()
         {
             using var ctx = new NorthWindContext();
             
-            return ctx.Products
-                .Include(x => x.Category)
-                .ToList();
+            
         }
+  */      
+        
 
 
     }
+    
 }

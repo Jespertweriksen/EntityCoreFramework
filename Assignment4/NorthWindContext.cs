@@ -18,7 +18,7 @@ namespace EFExample
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseLoggerFactory(MyLoggerFactory);
-            optionsBuilder.UseNpgsql("host=localhost;db=northwind;uid=jesper;pwd=/*INDSÆT PASS HER*/");
+            optionsBuilder.UseNpgsql("host=localhost;db=NorthWind;uid=postgres;pwd=Nvp92agn");
             //optionsBuilder.UseNpgsql(_connectionString);
         }
 
@@ -32,18 +32,22 @@ namespace EFExample
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-          
             modelBuilder.Entity<Order>().ToTable("orders");
             modelBuilder.Entity<Order>().Property(x => x.Id).HasColumnName("orderid");
             modelBuilder.Entity<Order>().Property(x => x.Date).HasColumnName("orderdate");
             modelBuilder.Entity<Order>().Property(x => x.Required).HasColumnName("requireddate");
             modelBuilder.Entity<Order>().Property(x => x.ShipName).HasColumnName("shipname");
             modelBuilder.Entity<Order>().Property(x => x.ShipCity).HasColumnName("shipcity");
+            modelBuilder.Entity<Order>().HasMany(c => c.OrderDetails).WithOne(e => e.Order);
             
             
             modelBuilder.Entity<OrderDetails>().ToTable("orderdetails");
             modelBuilder.Entity<OrderDetails>().Property(x => x.Orderid).HasColumnName("orderid");
-            
+            modelBuilder.Entity<OrderDetails>().Property(x => x.ProductId).HasColumnName("productid");
+            modelBuilder.Entity<OrderDetails>().Property(x => x.UnitPrice).HasColumnName("unitprice");
+            modelBuilder.Entity<OrderDetails>().Property(x => x.Quantity).HasColumnName("quantity");
+            modelBuilder.Entity<OrderDetails>().Property(x => x.Discount).HasColumnName("discount");
+            modelBuilder.Entity<OrderDetails>().HasKey(o => new {o.Orderid, o.ProductId});
 
             modelBuilder.Entity<Category>().ToTable("categories");
             modelBuilder.Entity<Category>().Property(x => x.Id).HasColumnName("categoryid");
@@ -57,6 +61,7 @@ namespace EFExample
             modelBuilder.Entity<Product>().Property(x => x.QuantityPerUnit).HasColumnName("quantityperunit");
             modelBuilder.Entity<Product>().Property(x => x.UnitPrice).HasColumnName("unitprice");
             modelBuilder.Entity<Product>().Property(x => x.UnitsInStock).HasColumnName("unitsinstock");
+            modelBuilder.Entity<Product>().HasMany(c => c.OrderDetails).WithOne(e => e.Product);
             
             
         }

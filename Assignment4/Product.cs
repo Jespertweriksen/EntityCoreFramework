@@ -16,12 +16,16 @@ namespace Assignment4
         public int UnitsInStock { get; set; }
         public int CategoryId { get; set; }
         public Category Category { get; set; }
+
+        public IList<OrderDetails> OrderDetails;
+        
         
 
 
         public override string ToString()
         {
-            return $"Id = {Id}, Name = {Name}, UnitPrice = {UnitPrice}, QuantityPerUnit = {QuantityPerUnit}, UnitsInStock = {UnitsInStock}, CategoryId = {CategoryId}, Category = {Category.Name}";
+            return
+                $"Id = {Id}, Name = {Name}, UnitPrice = {UnitPrice}, QuantityPerUnit = {QuantityPerUnit}, UnitsInStock = {UnitsInStock}, CategoryId = {CategoryId}";
         }
         
     }
