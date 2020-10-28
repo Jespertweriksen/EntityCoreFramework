@@ -80,13 +80,21 @@ namespace Assignment4
         {
             using var ctx = new NorthWindContext();
 
-            var result = from m in ctx.Orders
-                join s in ctx.OrderDetails on m.Id equals s.Orderid
-                join s1 in ctx.Products on s.ProductId equals s1.Id
-                where m.Id == 10248
-                select new {m, s, s1};
-            return null;
+            var query = ctx.Orders.Where(o => o.Id == 10248).FirstOrDefault();
+            
+            //var query2 = ctx.Orders.Include("orderdetails").Where()
+            
+           
 
+            if (query.OrderDetails == null)
+            {
+                
+            }
+            else
+            {
+                return query;
+            }
+            
         }
 
         public bool DeleteCategory(int id)

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity.Infrastructure.Design;
 using System.Threading.Channels;
@@ -8,7 +9,7 @@ namespace Assignment4
 {
     public class Product
     {
-        
+        [Key]
         public int Id { get; set; }
         public string Name { get; set; }
         public float UnitPrice { get; set; }
@@ -17,7 +18,7 @@ namespace Assignment4
         public int CategoryId { get; set; }
         public Category Category { get; set; }
 
-        public IList<OrderDetails> OrderDetails;
+        public List<OrderDetail> OrderDetails;
         
         
 
