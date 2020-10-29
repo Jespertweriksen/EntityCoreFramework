@@ -74,11 +74,7 @@ namespace Assignment4
             return x.ToList();
         }
 
-
-        public void Order_Object_HasIdDatesAndOrderDetails()
-        {
-            
-        }
+        
         //NÅET HERTIL
         public Order GetOrder(int id)
         {
@@ -122,9 +118,16 @@ namespace Assignment4
 
         public List<OrderDetail> GetOrderDetailsByOrderId(int Id)
         {
-            
-            
-            return null;
+            using var ctx = new NorthWindContext();
+
+            var query = ctx.OrderDetail
+                .Where(x => x.Orderid == 10248)
+                .Include(x => x.Product)
+                .ToList();
+
+            return query;
+
+
         }
         
 
