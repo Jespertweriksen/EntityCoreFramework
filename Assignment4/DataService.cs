@@ -2,7 +2,7 @@
 using System.CodeDom;
 using System.Collections.Generic;
 using System.Data;
-using System.Data.Entity;
+//using System.Data.Entity;
 using System.Linq;
 using System.Runtime.InteropServices.ComTypes;
 using System.Text;
@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using EFExample;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+
 namespace Assignment4
 
 {
@@ -26,22 +27,22 @@ namespace Assignment4
             using var ctx = new NorthWindContext();
             return ctx.Categories.ToList();
         }
-        
+
         public Category GetCategory(int id)
         {
             using var ctx = new NorthWindContext();
             return ctx.Categories.Find(id);
         }
-        
-        public Category CreateCategory(string name,  string description)
+
+        public Category CreateCategory(string name, string description)
         {
             using var ctx = new NorthWindContext();
             var maxId = ctx.Categories.Max(x => x.Id);
-            ctx.Categories.Add(new Category{Id = maxId + 1, Name = name, Description = description});
+            ctx.Categories.Add(new Category {Id = maxId + 1, Name = name, Description = description});
             ctx.SaveChanges();
-            return ctx.Categories.Find(maxId+1);
+            return ctx.Categories.Find(maxId + 1);
         }
-        
+
         public bool UpdateCategory(int id, string name, string description)
         {
             using var ctx = new NorthWindContext();
@@ -53,7 +54,7 @@ namespace Assignment4
         }
 
         public Product GetProduct(int id)
-        { 
+        {
             using var ctx = new NorthWindContext();
             var itWorks = ctx.Categories.Find(id).Name;
             return ctx.Products.Find(id);
@@ -73,28 +74,27 @@ namespace Assignment4
             return x.ToList();
         }
 
-        
-        
+
+        public void Order_Object_HasIdDatesAndOrderDetails()
+        {
+            
+        }
         //NÅET HERTIL
         public Order GetOrder(int id)
         {
             using var ctx = new NorthWindContext();
+            
 
-            var query = ctx.Orders.Where(o => o.Id == 10248).FirstOrDefault();
-            
-            //var query2 = ctx.Orders.Include("orderdetails").Where()
-            
-           
+            var query3 = ctx.Orders
+                .Include(o => o.OrderDetails)
+                .ThenInclude(d => d.Product)
+                .ThenInclude(d => d.Category)
+                .AsSingleQuery()
+                .FirstOrDefault(o => o.Id == 10248);
 
-            if (query.OrderDetails == null)
-            {
-                
-            }
-            else
-            {
-                return query;
-            }
-            
+            ctx.SaveChanges();
+
+            return query3;
         }
 
         public bool DeleteCategory(int id)
@@ -106,8 +106,28 @@ namespace Assignment4
                 ctx.SaveChanges();
             }
             else return false;
+
             return true;
         }
+        
+
+        public List<Order> GetOrders()
+        {
+            var ctx = new NorthWindContext();
+
+            var result = ctx.Orders;
+
+            return result.ToList();
+        }
+
+        public List<OrderDetail> GetOrderDetailsByOrderId(int Id)
+        {
+            
+            
+            return null;
+        }
+        
+
 /*
         public IList<Product> GetProducts()
         {
@@ -115,10 +135,7 @@ namespace Assignment4
             
             
         }
-  */      
-        
-
-
+  */
     }
     
 }

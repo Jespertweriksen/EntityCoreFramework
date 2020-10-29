@@ -9,7 +9,6 @@ namespace Assignment4
 {
     public class Product
     {
-        [Key]
         public int Id { get; set; }
         public string Name { get; set; }
         public float UnitPrice { get; set; }
@@ -18,7 +17,8 @@ namespace Assignment4
         public int CategoryId { get; set; }
         public Category Category { get; set; }
 
-        public List<OrderDetail> OrderDetails;
+         public virtual ICollection<OrderDetail> OrderDetails { get; set; }
+
         
         
 
@@ -28,6 +28,5 @@ namespace Assignment4
             return
                 $"Id = {Id}, Name = {Name}, UnitPrice = {UnitPrice}, QuantityPerUnit = {QuantityPerUnit}, UnitsInStock = {UnitsInStock}, CategoryId = {CategoryId}";
         }
-        
     }
 }

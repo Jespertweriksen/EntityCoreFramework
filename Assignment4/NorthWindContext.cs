@@ -1,9 +1,4 @@
-﻿    using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿ 
 using Assignment4;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
@@ -42,13 +37,14 @@ namespace EFExample
 
             modelBuilder.Entity<OrderDetail>().ToTable("orderdetails");
             modelBuilder.Entity<OrderDetail>().Property(x => x.Orderid).HasColumnName("orderid");
-            modelBuilder.Entity<OrderDetail>().Property(x => x.ProductId).HasColumnName("productid");
+            modelBuilder.Entity<OrderDetail>().Property(x => x.productid).HasColumnName("productid");
             modelBuilder.Entity<OrderDetail>().Property(x => x.UnitPrice).HasColumnName("unitprice");
             modelBuilder.Entity<OrderDetail>().Property(x => x.Quantity).HasColumnName("quantity");
             modelBuilder.Entity<OrderDetail>().Property(x => x.Discount).HasColumnName("discount");
-            modelBuilder.Entity<OrderDetail>().HasKey(o => new {o.Orderid, o.ProductId});
-            
-            
+            modelBuilder.Entity<OrderDetail>().HasKey(o => new {o.Orderid, o.productid});
+           
+
+
 
             modelBuilder.Entity<Category>().ToTable("categories");
             modelBuilder.Entity<Category>().Property(x => x.Id).HasColumnName("categoryid");
@@ -62,8 +58,14 @@ namespace EFExample
             modelBuilder.Entity<Product>().Property(x => x.QuantityPerUnit).HasColumnName("quantityperunit");
             modelBuilder.Entity<Product>().Property(x => x.UnitPrice).HasColumnName("unitprice");
             modelBuilder.Entity<Product>().Property(x => x.UnitsInStock).HasColumnName("unitsinstock");
+            modelBuilder.Entity<Product>()
+                .HasMany(x => x.OrderDetails)
+                .WithOne(x => x.Product).HasForeignKey(x => x.productid);
             
-            
+            base.OnModelCreating(modelBuilder);
+
+
+
         }
     }
 

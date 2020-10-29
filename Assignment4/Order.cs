@@ -14,12 +14,25 @@ namespace Assignment4
 
         public DateTime Required { get; set; }
 
-        public List<OrderDetail> OrderDetails { get; set; }
-
         public string ShipName { get; set; }
 
         public string ShipCity { get; set; }
-        
+
+
+        [Required] public virtual IList<OrderDetail> OrderDetails { get; set; }
+
+        public Order()
+        {
+            this.OrderDetails = new List<OrderDetail>();
+
+            if (this.Id == 0)
+            {
+                OrderDetails = null;
+                ShipCity = null;
+                ShipName = null;
+            }
+        }
+
         public override string ToString()
         {
             string ret =
