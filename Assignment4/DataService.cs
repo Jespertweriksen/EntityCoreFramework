@@ -74,12 +74,12 @@ namespace Assignment4
             return x.ToList();
         }
 
-        
+
         //NÅET HERTIL
         public Order GetOrder(int id)
         {
             using var ctx = new NorthWindContext();
-            
+
 
             var query3 = ctx.Orders
                 .Include(o => o.OrderDetails)
@@ -105,7 +105,7 @@ namespace Assignment4
 
             return true;
         }
-        
+
 
         public List<Order> GetOrders()
         {
@@ -126,19 +126,18 @@ namespace Assignment4
                 .ToList();
 
             return query;
-
-
         }
-        
 
-/*
-        public IList<Product> GetProducts()
+        public List<OrderDetail> GetOrderDetailsByProductId(int id)
         {
-            using var ctx = new NorthWindContext();
-            
-            
+            var ctx = new NorthWindContext();
+
+            var query = ctx.OrderDetail
+                .Where(x => x.productid == 11)
+                .Include(x => x.Order)
+                .ToList();
+
+            return query;
         }
-  */
     }
-    
 }
