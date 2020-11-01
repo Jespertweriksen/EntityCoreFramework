@@ -1,8 +1,11 @@
-﻿using System;
+﻿using System.Linq;
+using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
 using Assignment4;
+using AutoMapper;
+using EFExample;
 using Microsoft.AspNetCore.Mvc;
 using WebService.Models.DTO;
 using AutoMapper;
@@ -51,13 +54,14 @@ namespace WebService.Controllers
             return Created("", categoryDto);
         }
 
-        [HttpPut("{id}", Name = nameof(getCategory))]
+        [HttpPut("{id}")]
         public IActionResult updateCategory(int id, CategoryDTO updateCategoryDto)
         {
             if (id <= 0)
             {
                 return NotFound();
             }
+
             _dataService.UpdateCategory(id, updateCategoryDto.Name, updateCategoryDto.Description);
             return Ok(updateCategoryDto);
         }
@@ -73,5 +77,7 @@ namespace WebService.Controllers
             }
             return Ok(delete);
         }
+
+
     }
 }

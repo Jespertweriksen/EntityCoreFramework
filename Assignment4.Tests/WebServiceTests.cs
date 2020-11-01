@@ -67,6 +67,7 @@ namespace Assignment4.Tests
 
             Assert.Equal(HttpStatusCode.Created, statusCode);
 
+            //_testOutputHelper.WriteLine($"{CategoriesApi}/{category["id"]}");
             DeleteData($"{CategoriesApi}/{category["id"]}");
         }
 
@@ -80,14 +81,18 @@ namespace Assignment4.Tests
                 Description = "Created"
             };
             var (category, _) = PostData($"{CategoriesApi}", data);
-            
+            _testOutputHelper.WriteLine(category.ToString());
+
             var update = new
             {
                 Id = category["id"],
                 Name = category["name"] + "Updated",
                 Description = category["description"] + "Updated"
             };
-
+            _testOutputHelper.WriteLine(update.ToString());
+            
+            //{CategoriesApi}/{category["id"]}
+            //_testOutputHelper.WriteLine($"{CategoriesApi}/{category["id"]}");
             var statusCode = PutData($"{CategoriesApi}/{category["id"]}", update);
             
             Assert.Equal(HttpStatusCode.OK, statusCode);
