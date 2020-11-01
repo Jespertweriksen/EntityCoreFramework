@@ -9,9 +9,8 @@ namespace WebService.Models.Profiles
         public ProductMapping()
         {
             CreateMap<Product, ProductDTO>();
-                
-                
             CreateMap<Product, ProductCategoryDTO>();
+            
         }
     }
 }

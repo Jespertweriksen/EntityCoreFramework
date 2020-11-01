@@ -38,7 +38,6 @@ namespace WebService.Controllers
         [HttpGet("name/{Name}", Name = nameof(GetProducts))]
         public IActionResult GetProducts(string name)
         {
-
             var products = _dataService.GetProductByName(name);
 
             IList<ProductDTO> newProd = products.Select(x => new ProductDTO
@@ -70,8 +69,6 @@ namespace WebService.Controllers
 
             return Ok(newProd);
         }
-        
-        
 
         private ProductDTO CreateProductDto(Product product)
         {

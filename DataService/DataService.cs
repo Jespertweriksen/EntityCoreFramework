@@ -53,6 +53,7 @@ namespace Assignment4
             ctx.Categories.Update(ctx.Categories.Find(id)).Entity.Name = name;
             ctx.SaveChanges();
             return GetCategory(id).Description == description && GetCategory(id).Name == name;
+            
         }
 
         public Product GetProduct(int id)

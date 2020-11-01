@@ -89,7 +89,7 @@ namespace Assignment4.Tests
             };
 
             var statusCode = PutData($"{CategoriesApi}/{category["id"]}", update);
-
+            
             Assert.Equal(HttpStatusCode.OK, statusCode);
 
             var (cat, _) = GetObject($"{CategoriesApi}/{category["id"]}");
@@ -128,7 +128,7 @@ namespace Assignment4.Tests
             var (category, _) = PostData($"{CategoriesApi}", data);
 
             var statusCode = DeleteData($"{CategoriesApi}/{category["id"]}");
-
+            
             Assert.Equal(HttpStatusCode.OK, statusCode);
         }
 
