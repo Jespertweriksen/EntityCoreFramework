@@ -81,7 +81,6 @@ namespace Assignment4.Tests
                 Description = "Created"
             };
             var (category, _) = PostData($"{CategoriesApi}", data);
-            _testOutputHelper.WriteLine(category.ToString());
 
             var update = new
             {
@@ -89,10 +88,7 @@ namespace Assignment4.Tests
                 Name = category["name"] + "Updated",
                 Description = category["description"] + "Updated"
             };
-            _testOutputHelper.WriteLine(update.ToString());
-            
-            //{CategoriesApi}/{category["id"]}
-            //_testOutputHelper.WriteLine($"{CategoriesApi}/{category["id"]}");
+
             var statusCode = PutData($"{CategoriesApi}/{category["id"]}", update);
             
             Assert.Equal(HttpStatusCode.OK, statusCode);

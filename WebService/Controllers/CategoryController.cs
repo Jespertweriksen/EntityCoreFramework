@@ -9,6 +9,7 @@ using EFExample;
 using Microsoft.AspNetCore.Mvc;
 using WebService.Models.DTO;
 using AutoMapper;
+using Newtonsoft.Json.Linq;
 using WebService.Models.DTO;
 
 namespace WebService.Controllers
@@ -50,8 +51,9 @@ namespace WebService.Controllers
         [HttpPost]
         public IActionResult createCategory(CategoryDTO categoryDto)
         {
-            _dataService.CreateCategory(categoryDto.Name, categoryDto.Description);
-            return Created("", categoryDto);
+            var category = _dataService.CreateCategory(categoryDto.Name, categoryDto.Description);
+            
+            return Created("", category);
         }
 
         [HttpPut("{id}")]
