@@ -18,8 +18,14 @@ namespace WebService.Controllers
         [HttpGet("{id}", Name = nameof(getCategory))]
         public IActionResult getCategory(int id)
         {
-            var categories = _dataService.GetCategory(id);
-            return Ok(categories);
+            var category = _dataService.GetCategory(id);
+            
+            if (category == null)
+            {
+                //we can return action results
+                return NotFound();
+            }
+            return Ok(category);
         }
 
     }

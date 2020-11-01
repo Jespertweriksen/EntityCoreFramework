@@ -33,7 +33,9 @@ namespace Assignment4
         public Category GetCategory(int id)
         {
             using var ctx = new NorthWindContext();
-            return ctx.Categories.Find(id);
+
+            var category = ctx.Categories.Where(x => x.Id == id).FirstOrDefault();
+            return category;
         }
 
         public Category CreateCategory(string name, string description)
