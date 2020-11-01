@@ -39,11 +39,15 @@ namespace WebService.Controllers
         public IActionResult GetProducts(string name)
         {
             var products = _dataService.GetProductByName(name);
-            var items = CreateResult(products);
-            Console.WriteLine("get product: "+name);
 
+            IEnumerable<ProductDTO> newProd = products.Select(x => new ProductDTO
+            {
+                Name = x.Name,
+                Id = x.Id
+            }).ToList();
+           
 
-            return Ok(items);
+            return Ok(newProd);
         }
 
         private ProductDTO CreateProductDto(Product product)

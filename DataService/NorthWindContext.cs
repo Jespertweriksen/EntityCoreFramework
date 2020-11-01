@@ -13,7 +13,7 @@ namespace EFExample
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseLoggerFactory(MyLoggerFactory);
-            optionsBuilder.UseNpgsql("host=localhost;db=northwind;uid=postgres;pwd=Flintholm2020");
+            optionsBuilder.UseNpgsql("host=localhost;db=NorthWind;uid=postgres;pwd=Nvp92agn");
             //optionsBuilder.UseNpgsql(_connectionString);
         }
 
