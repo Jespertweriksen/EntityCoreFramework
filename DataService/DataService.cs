@@ -70,8 +70,16 @@ namespace Assignment4
 
         public IList<Product> GetProductByName(string searchString)
         {
+            
             using var ctx = new NorthWindContext();
+            
+                
+            
             var x = ctx.Products.Where(z => z.Name.Contains(searchString));
+            
+            var y = ctx.Products.Where(z => z.Name.Contains(searchString)).ToList();
+            
+            
             return x.ToList();
         }
         

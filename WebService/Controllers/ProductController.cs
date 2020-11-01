@@ -38,13 +38,21 @@ namespace WebService.Controllers
         [HttpGet("name/{Name}", Name = nameof(GetProducts))]
         public IActionResult GetProducts(string name)
         {
+
             var products = _dataService.GetProductByName(name);
 
-            IEnumerable<ProductDTO> newProd = products.Select(x => new ProductDTO
+            IList<ProductDTO> newProd = products.Select(x => new ProductDTO
             {
                 Name = x.Name,
                 Id = x.Id
             }).ToList();
+
+            if (products.Count == 0)
+            {
+                return NotFound(newProd);
+            }
+
+            
            
 
             return Ok(newProd);
