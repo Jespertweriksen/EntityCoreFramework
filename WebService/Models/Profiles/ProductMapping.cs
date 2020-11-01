@@ -10,6 +10,7 @@ namespace WebService.Models.Profiles
         {
             CreateMap<Product, ProductDTO>();
             CreateMap<ProductDTO, Product>();
+            CreateMap<Product, ProductListDTO>();
         }
     }
 }

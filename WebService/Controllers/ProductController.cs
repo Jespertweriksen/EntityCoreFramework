@@ -1,6 +1,9 @@
-﻿using Assignment4;
+﻿using System.Collections.Generic;
+using System.Linq;
+using Assignment4;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using WebService.Models.DTO;
 
 namespace WebService.Controllers
 {
@@ -30,6 +33,12 @@ namespace WebService.Controllers
             
 
             return Ok(product);
+        }
+
+        [HttpGet("{Name}")]
+        public IActionResult GetProducts(IList<Product> products)
+        {
+            return null;
         }
     }
 }
