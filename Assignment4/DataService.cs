@@ -14,6 +14,8 @@ using Microsoft.Extensions.Logging;
 namespace Assignment4
 
 {
+    
+    //HELLO JESPER
     public class DataService
     {
         //private readonly string _connectionString;
