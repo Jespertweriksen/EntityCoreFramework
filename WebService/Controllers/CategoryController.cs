@@ -1,5 +1,6 @@
 ﻿using Assignment4;
 using Microsoft.AspNetCore.Mvc;
+using WebService.Models.DTO;
 
 namespace WebService.Controllers
 {
@@ -34,6 +35,21 @@ namespace WebService.Controllers
             var categories = _dataService.GetCategories();
             return Ok(categories);
         }
+
+        [HttpPost]
+        public IActionResult createCategory(CategoryDTO categoryDto)
+        {
+            _dataService.CreateCategory(categoryDto.Name, categoryDto.Description);
+            return Created("", categoryDto);
+        }
+
+        [HttpPut("{id}")]
+        public IActionResult updateCategory(int id, CategoryDTO updateCategoryDto)
+        {
+            _dataService.UpdateCategory(id, updateCategoryDto.Name, updateCategoryDto.Description);
+            return Ok();
+        }
+        
 
     }
 }

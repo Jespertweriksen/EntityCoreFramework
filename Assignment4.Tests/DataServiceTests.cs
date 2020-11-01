@@ -22,7 +22,7 @@ namespace Assignment4.Tests
         {
             var service = new DataService();
             var categories = service.GetCategories();
-            Assert.Equal(10, categories.Count);
+            Assert.Equal(8, categories.Count);
             Assert.Equal("Beverages", categories.First().Name);
         }
 
