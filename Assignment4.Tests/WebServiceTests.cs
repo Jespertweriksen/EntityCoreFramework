@@ -72,7 +72,7 @@ namespace Assignment4.Tests
                 Description = "Created"
             };
             var (category, _) = PostData($"{CategoriesApi}", data);
-
+            
             var update = new
             {
                 Id = category["id"],

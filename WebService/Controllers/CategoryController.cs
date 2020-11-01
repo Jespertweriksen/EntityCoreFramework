@@ -1,4 +1,5 @@
 ﻿using Assignment4;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using WebService.Models.DTO;
 
@@ -10,9 +11,11 @@ namespace WebService.Controllers
     {
 
         private IDataService _dataService;
+        private readonly IMapper _mapper;
 
         public CategoryController(IDataService dataService)
         {
+            _mapper = _mapper;
             _dataService = dataService;
         }
 
@@ -43,12 +46,17 @@ namespace WebService.Controllers
             return Created("", categoryDto);
         }
 
-        [HttpPut("{id}")]
+        [HttpPut("{id}", Name = nameof(getCategory))]
         public IActionResult updateCategory(int id, CategoryDTO updateCategoryDto)
         {
+            if (id <= 0)
+            {
+                return NotFound();
+            }
             _dataService.UpdateCategory(id, updateCategoryDto.Name, updateCategoryDto.Description);
-            return Ok();
+            return Ok(updateCategoryDto);
         }
+        
         
 
     }
