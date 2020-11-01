@@ -30,6 +30,8 @@ namespace WebService
             {
                 app.UseDeveloperExceptionPage();
             }
+            
+            
 
             app.UseRouting();
 
