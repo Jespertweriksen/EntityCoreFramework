@@ -61,7 +61,6 @@ namespace Assignment4
             var itWorks = ctx.Categories.Find(id).Name;
             return ctx.Products.Find(id);
         }
-
         public IList<Product> GetProductByCategory(int id)
         {
             using var ctx = new NorthWindContext();
@@ -75,9 +74,7 @@ namespace Assignment4
             var x = ctx.Products.Where(z => z.Name.Contains(searchString));
             return x.ToList();
         }
-
-
-        //NÅET HERTIL
+        
         public Order GetOrder(int id)
         {
             using var ctx = new NorthWindContext();
@@ -98,17 +95,15 @@ namespace Assignment4
         public bool DeleteCategory(int id)
         {
             using var ctx = new NorthWindContext();
-            if (id > 0)
+            var dbCat = GetCategory(id);
+            if (dbCat == null)
             {
-                ctx.Categories.Remove(new Category() {Id = id});
-                ctx.SaveChanges();
+                return false;
             }
-            else return false;
-
+            ctx.Categories.Remove(dbCat);
+            ctx.SaveChanges();
             return true;
         }
-
-
         public List<Order> GetOrders()
         {
             var ctx = new NorthWindContext();

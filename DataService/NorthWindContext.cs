@@ -13,7 +13,7 @@ namespace EFExample
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseLoggerFactory(MyLoggerFactory);
-            optionsBuilder.UseNpgsql("host=localhost;db=NorthWind;uid=postgres;pwd=Nvp92agn");
+            optionsBuilder.UseNpgsql("host=localhost;db=northwind;uid=postgres;pwd=Flintholm2020");
             //optionsBuilder.UseNpgsql(_connectionString);
         }
 
@@ -58,10 +58,10 @@ namespace EFExample
             modelBuilder.Entity<Product>().Property(x => x.QuantityPerUnit).HasColumnName("quantityperunit");
             modelBuilder.Entity<Product>().Property(x => x.UnitPrice).HasColumnName("unitprice");
             modelBuilder.Entity<Product>().Property(x => x.UnitsInStock).HasColumnName("unitsinstock");
-            /*modelBuilder.Entity<Product>()
+            modelBuilder.Entity<Product>()
                 .HasMany(x => x.OrderDetails)
                 .WithOne(x => x.Product).HasForeignKey(x => x.productid);
-            */
+            
             base.OnModelCreating(modelBuilder);
 
 

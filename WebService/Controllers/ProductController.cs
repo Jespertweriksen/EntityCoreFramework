@@ -8,10 +8,12 @@ using WebService.Models.DTO;
 
 namespace WebService.Controllers
 {
+    
     [ApiController]
     [Route("api/products")]
     public class ProductController : ControllerBase
     {
+
         private IDataService _dataService;
         private readonly IMapper _mapper;
 
@@ -28,7 +30,6 @@ namespace WebService.Controllers
             {
                 return NotFound();
             }
-
             var product = _dataService.GetProduct(id);
             return Ok(product);
         }

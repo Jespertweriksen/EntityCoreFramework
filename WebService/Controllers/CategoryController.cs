@@ -1,6 +1,11 @@
-﻿using Assignment4;
-using AutoMapper;
+﻿using System;
+using System.Collections.Generic;
+using System.Net;
+using System.Net.Http;
+using Assignment4;
 using Microsoft.AspNetCore.Mvc;
+using WebService.Models.DTO;
+using AutoMapper;
 using WebService.Models.DTO;
 
 namespace WebService.Controllers
@@ -13,10 +18,10 @@ namespace WebService.Controllers
         private IDataService _dataService;
         private readonly IMapper _mapper;
 
-        public CategoryController(IDataService dataService)
+        public CategoryController(IDataService dataService, IMapper mapper)
         {
-            _mapper = _mapper;
             _dataService = dataService;
+            _mapper = mapper;
         }
 
         [HttpGet("{id}", Name = nameof(getCategory))]
@@ -58,6 +63,18 @@ namespace WebService.Controllers
         }
         
         
-
+        [HttpDelete("{id}")]
+        public IActionResult deleteData(int id)
+        {
+            var delete = _dataService.DeleteCategory(id);
+            Console.WriteLine("this is the ID!!!: "+id);
+            if (id < 0)
+            {
+                Console.WriteLine("not found" + id);
+                return NotFound();
+            }
+            Console.WriteLine("deleted:"+id);
+            return Ok(delete);
+        }
     }
 }

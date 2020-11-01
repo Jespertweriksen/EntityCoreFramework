@@ -8,12 +8,20 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Xunit;
+using Xunit.Abstractions;
 
 namespace Assignment4.Tests
 {
     
     public class WebServiceTests
     {
+        private readonly ITestOutputHelper _testOutputHelper;
+
+        public WebServiceTests(ITestOutputHelper testOutputHelper)
+        {
+            _testOutputHelper = testOutputHelper;
+        }
+
         private const string CategoriesApi = "http://localhost:5001/api/categories";
         private const string ProductsApi = "http://localhost:5001/api/products";
 
@@ -116,6 +124,7 @@ namespace Assignment4.Tests
                 Name = "Created",
                 Description = "Created"
             };
+            
             var (category, _) = PostData($"{CategoriesApi}", data);
 
             var statusCode = DeleteData($"{CategoriesApi}/{category["id"]}");
