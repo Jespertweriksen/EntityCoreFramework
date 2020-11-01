@@ -23,7 +23,7 @@ namespace WebService.Controllers
         public IActionResult GetProduct(int id)
         {
             var product = _dataService.GetProduct(id);
-            if (product == null)
+            if (product == null || id <= 0)
             {
                 return NotFound();
             }

@@ -6,6 +6,6 @@ namespace WebService.Models.DTO
     {
         public int Id;
         public string Name;
-        public Category Category;
+      
     }
 }

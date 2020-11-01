@@ -58,10 +58,10 @@ namespace EFExample
             modelBuilder.Entity<Product>().Property(x => x.QuantityPerUnit).HasColumnName("quantityperunit");
             modelBuilder.Entity<Product>().Property(x => x.UnitPrice).HasColumnName("unitprice");
             modelBuilder.Entity<Product>().Property(x => x.UnitsInStock).HasColumnName("unitsinstock");
-            modelBuilder.Entity<Product>()
+            /*modelBuilder.Entity<Product>()
                 .HasMany(x => x.OrderDetails)
                 .WithOne(x => x.Product).HasForeignKey(x => x.productid);
-            
+            */
             base.OnModelCreating(modelBuilder);
 
 
