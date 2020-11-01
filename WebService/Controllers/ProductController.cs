@@ -22,11 +22,12 @@ namespace WebService.Controllers
         [HttpGet("{id}", Name = nameof(GetProduct))]
         public IActionResult GetProduct(int id)
         {
-            var product = _dataService.GetProduct(id);
-            if (product == null || id <= 0)
+            if (id <= 0)
             {
                 return NotFound();
             }
+            var product = _dataService.GetProduct(id);
+            
 
             return Ok(product);
         }
