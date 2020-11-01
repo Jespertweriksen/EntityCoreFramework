@@ -28,5 +28,12 @@ namespace WebService.Controllers
             return Ok(category);
         }
 
+        [HttpGet]
+        public IActionResult getCategories()
+        {
+            var categories = _dataService.GetCategories();
+            return Ok(categories);
+        }
+
     }
 }
