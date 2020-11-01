@@ -67,13 +67,10 @@ namespace WebService.Controllers
         public IActionResult deleteData(int id)
         {
             var delete = _dataService.DeleteCategory(id);
-            Console.WriteLine("this is the ID!!!: "+id);
             if (id < 0)
             {
-                Console.WriteLine("not found" + id);
                 return NotFound();
             }
-            Console.WriteLine("deleted:"+id);
             return Ok(delete);
         }
     }

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Assignment4;
 using AutoMapper;
@@ -39,6 +40,7 @@ namespace WebService.Controllers
         {
             var products = _dataService.GetProductByName(name);
             var items = CreateResult(products);
+            Console.WriteLine("get product: "+name);
 
 
             return Ok(items);
@@ -49,13 +51,10 @@ namespace WebService.Controllers
             var dto = _mapper.Map<ProductDTO>(product);
             return dto;
         }
-
-
+        
         private object CreateResult(IList<Product> products)
         {
             var items = products.Select(CreateProductDto);
-
-
             var result = new
             {
                 items
