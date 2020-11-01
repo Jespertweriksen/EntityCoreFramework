@@ -17,5 +17,8 @@ namespace Assignment4
             List<Order> GetOrders();
             List<OrderDetail> GetOrderDetailsByOrderId(int Id);
             List<OrderDetail> GetOrderDetailsByProductId(int id);
+
+            IList<Product> getProductCategory(int id);
+           
         }
     }

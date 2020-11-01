@@ -51,12 +51,27 @@ namespace WebService.Controllers
             {
                 return NotFound(newProd);
             }
+            return Ok(newProd);
+        }
 
+        [HttpGet("category/{id}", Name = nameof(GetProductCategory))]
+        public IActionResult GetProductCategory(int id)
+        {
+            var products = _dataService.GetProductByCategory(id);
+            var category = _dataService.GetCategories().Where(x => x.Id == id).FirstOrDefault();
             
-           
+
+            var newProd = products.Select(x => new ProductCategoryDTO
+            {
+                Name = x.Name,
+                Id = x.Id,
+                Category = category
+            }).ToList();
 
             return Ok(newProd);
         }
+        
+        
 
         private ProductDTO CreateProductDto(Product product)
         {

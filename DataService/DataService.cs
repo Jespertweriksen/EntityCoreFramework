@@ -144,5 +144,14 @@ namespace Assignment4
 
             return query;
         }
+
+        public IList<Product> getProductCategory(int id)
+        {
+            var ctx = new NorthWindContext();
+
+            var query = ctx.Products.Where(x => x.Category.Id == id).ToList();
+
+            return query;
+        }
     }
 }

@@ -11,7 +11,7 @@ namespace WebService.Models.Profiles
             CreateMap<Product, ProductDTO>();
                 
                 
-            CreateMap<Product, ProductListDTO>();
+            CreateMap<Product, ProductCategoryDTO>();
         }
     }
 }
