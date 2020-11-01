@@ -8,8 +8,11 @@ namespace WebService.Models.Profiles
     {
         public ProductMapping()
         {
-            CreateMap<Product, ProductDTO>();
-            CreateMap<ProductDTO, Product>();
+            CreateMap<Product, ProductDTO>()
+                .ForMember(src => src.Name,
+                    opt =>
+                        opt.MapFrom(x => x.Name));
+                
             CreateMap<Product, ProductListDTO>();
         }
     }

@@ -3,16 +3,15 @@ using System.Linq;
 using Assignment4;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using WebService.Models.DTO;
 
 namespace WebService.Controllers
 {
-    
     [ApiController]
     [Route("api/products")]
     public class ProductController : ControllerBase
     {
-
         private IDataService _dataService;
         private readonly IMapper _mapper;
 
@@ -29,16 +28,38 @@ namespace WebService.Controllers
             {
                 return NotFound();
             }
-            var product = _dataService.GetProduct(id);
-            
 
+            var product = _dataService.GetProduct(id);
             return Ok(product);
         }
 
-        [HttpGet("{Name}")]
-        public IActionResult GetProducts(IList<Product> products)
+        [HttpGet("name/{Name}", Name = nameof(GetProducts))]
+        public IActionResult GetProducts(string name)
         {
-            return null;
+            var products = _dataService.GetProductByName(name);
+            var items = CreateResult(products);
+
+
+            return Ok(items);
+        }
+
+        private ProductDTO CreateProductDto(Product product)
+        {
+            var dto = _mapper.Map<ProductDTO>(product);
+            return dto;
+        }
+
+
+        private object CreateResult(IList<Product> products)
+        {
+            var items = products.Select(CreateProductDto);
+
+
+            var result = new
+            {
+                items
+            };
+            return result;
         }
     }
 }
